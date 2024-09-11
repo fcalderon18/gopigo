@@ -31,23 +31,63 @@ class GoPiGo3WithKeyboard(object):
     """
     def _gopigo3_command_dance(self):
     """
-    Makes the GoPiGo3 execute a dance routine by performing a sequence of movements.
+    Executes a complex dance routine with specific movements and timing.
     """
-    # Example dance sequence:
-    # Move forward, turn right, move forward, turn left, move backward, stop
-    
+    # 1. Turn from 12 o'clock to 3 o'clock (90 degrees right turn)
+    self.gopigo3.right_rot()  # Assuming a function that makes a 90-degree right turn
+    sleep(1.5)  # Adjust sleep time according to how fast the turn is
+
+    # 2. Drive forward in a wide left curve for 8 seconds
+    self.gopigo3.set_motor_dps(left_speed=50, right_speed=100)  # Adjust speeds for a wide left curve
     self.gopigo3.forward()
-    sleep(1)  # Move forward for 1 second
-    self.gopigo3.right()
-    sleep(1)  # Turn right for 1 second
-    self.gopigo3.forward()
-    sleep(1)  # Move forward for 1 second
-    self.gopigo3.left()
-    sleep(1)  # Turn left for 1 second
-    self.gopigo3.backward()
-    sleep(1)  # Move backward for 1 second
+    sleep(8)
     self.gopigo3.stop()
-    
+
+    # 3. Single clockwise spin
+    self.gopigo3.set_motor_dps(left_speed=100, right_speed=-100)  # Full spin clockwise
+    sleep(2)  # Adjust sleep time for a single spin
+    self.gopigo3.stop()
+
+    # 4. Drive forward in a wide left curve for 10 seconds
+    self.gopigo3.set_motor_dps(left_speed=50, right_speed=100)  # Adjust speeds for a wide left curve
+    self.gopigo3.forward()
+    sleep(10)
+    self.gopigo3.stop()
+
+    # 5. Single counter-clockwise spin
+    self.gopigo3.set_motor_dps(left_speed=-100, right_speed=100)  # Full spin counter-clockwise
+    sleep(2)  # Adjust sleep time for a single spin
+    self.gopigo3.stop()
+
+    # 6. Drive forward in a tight left curve for 10 seconds
+    self.gopigo3.set_motor_dps(left_speed=50, right_speed=100)  # Adjust speeds for a tight left curve
+    self.gopigo3.forward()
+    sleep(10)
+    self.gopigo3.stop()
+
+    # 7. Spin starting off slowly and build up speed
+    self.gopigo3.set_motor_dps(left_speed=50, right_speed=-50)  # Start slowly
+    sleep(2)
+    self.gopigo3.set_motor_dps(left_speed=100, right_speed=-100)  # Build up speed
+    sleep(4)  # Total spin duration (slow to fast)
+    self.gopigo3.stop()
+
+    # 8. Go forward for 1.5 seconds
+    self.gopigo3.set_motor_dps(left_speed=100, right_speed=100)  # Drive straight
+    self.gopigo3.forward()
+    sleep(1.5)
+    self.gopigo3.stop()
+
+    # 9. Spin again, starting slowly and build up speed
+    self.gopigo3.set_motor_dps(left_speed=50, right_speed=-50)  # Start slowly
+    sleep(2)
+    self.gopigo3.set_motor_dps(left_speed=100, right_speed=-100)  # Build up speed
+    sleep(5)  # Total spin duration (slow to fast)
+    self.gopigo3.stop()
+
+    # 10. Stop the robot
+    self.gopigo3.stop()
+
     return "static"
 
 
